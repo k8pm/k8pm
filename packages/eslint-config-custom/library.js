@@ -30,5 +30,8 @@ module.exports = {
       },
     },
   },
+  rules: {
+    "no-console": "off",
+  },
   ignorePatterns: ["node_modules/", "dist/"],
 };
