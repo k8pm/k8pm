@@ -22,6 +22,8 @@
     "yaml-to-json": "^0.3.0",
     "zod": "^3.21.4",
     "logger": "workspace:*",
-    "core": "workspace:*"
+    "core": "workspace:*",
+    "k8s": "workspace:*",
+    "k8s-types": "workspace:*"
   }
 }

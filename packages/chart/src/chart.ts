@@ -7,7 +7,7 @@ type Constructable<T> = new (...args: any[]) => T;
 
 export type ChartValues = Record<string, any>;
 
-interface ChartContext {
+export interface ChartContext {
   namespace: string;
 }
 
@@ -57,7 +57,11 @@ export class Chart<T> {
   parseValues(values: T) {
     return this._schema?.safeParseAsync(values);
   }
-  async renderToYAML(values: Record<string, any>, context: ChartContext) {
+  async renderToYAML(
+    name: string,
+    values: Record<string, any>,
+    context: ChartContext
+  ) {
     const app = new Cdk8sApp();
     const chart = new Cdk8sChart(app, this.constructor.name);
 
@@ -76,11 +80,5 @@ export class Chart<T> {
     });
 
     return app.synthYaml();
-  }
-  renderToJSON() {
-    return {} as JSON;
-  }
-  renderToAPIObjects() {
-    return [];
   }
 }

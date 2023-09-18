@@ -1,17 +1,20 @@
-import { Chart } from 'cdk8s';
-import {
+import type { Chart } from "cdk8s";
+import type {
   Container,
-  IntOrString,
-  KubeDeployment,
   KubeDeploymentProps,
-  KubeService,
   KubeServiceProps,
-  KubeStatefulSet,
   KubeStatefulSetProps,
   ServicePort,
-} from '../imports/k8s';
-import { ChartContext } from './chart';
-import { createLogger } from '../library/logger';
+} from "k8s-types";
+import {
+  IntOrString,
+  KubeDeployment,
+  KubeService,
+  KubeStatefulSet,
+} from "k8s-types";
+import type { LoggerInstance } from "logger";
+import { Logger } from "logger";
+import type { ChartContext } from "./chart";
 
 const createProps = (
   props: {
@@ -56,8 +59,10 @@ const createProps = (
  * Components from the library are designed to work well together.
  */
 export class ComponentLibrary {
-  loggers = createLogger('component-library');
-  constructor(private readonly chart: Chart) {}
+  logger: LoggerInstance;
+  constructor(private readonly chart: Chart) {
+    this.logger = new Logger().createLogger("component-library");
+  }
   get util() {
     return {
       intOrStringFromNumber: (value: number) => IntOrString.fromNumber(value),
@@ -81,7 +86,7 @@ export class ComponentLibrary {
         ports: props.ports,
       },
     };
-    this.loggers.debug('Service', serviceProps);
+    this.logger.debug("Service", serviceProps);
     return new KubeService(this.chart, props.name, serviceProps);
   }
   deployment(
@@ -96,7 +101,7 @@ export class ComponentLibrary {
   ) {
     const deploymentProps: KubeDeploymentProps = createProps(props, context);
 
-    this.loggers.debug('Deployment', deploymentProps);
+    this.logger.debug("Deployment", deploymentProps);
 
     return new KubeDeployment(this.chart, props.name, deploymentProps);
   }
@@ -120,7 +125,7 @@ export class ComponentLibrary {
       },
     };
 
-    this.loggers.debug('StatefulSet', statefulSetProps);
+    this.logger.debug("StatefulSet", statefulSetProps);
 
     return new KubeStatefulSet(this.chart, props.name, statefulSetProps);
   }

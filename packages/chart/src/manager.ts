@@ -1,4 +1,7 @@
 import path from "node:path";
+import type { LoggerInstance } from "logger";
+import { Logger } from "logger";
+import { K8sClient, ReleaseStatus, Substrate } from "k8s";
 import type { Chart } from "./chart";
 
 interface InstallOptions {
@@ -14,18 +17,14 @@ interface UpgradeOptions extends InstallOptions {
 export class FreightManager {
   api: K8sClient;
   release: Substrate;
-  logger = createLogger("manager");
+  logger: LoggerInstance;
 
   constructor() {
+    this.logger = new Logger().createLogger("manager");
     this.api = new K8sClient();
     this.release = new Substrate(this.api);
   }
 
-  /**
-   * Import a manifest from a file path.
-   * @param importPath
-   * @returns
-   * */
   async _importManifest(importPath: string) {
     const module = await import(path.resolve(importPath));
     const manifest = module.default as Chart<any>;
@@ -80,16 +79,18 @@ export class FreightManager {
     }
   }
 
-  async installFromModule<T>(
-    manifestName: string,
-    manifest: Chart<any>,
-    values: Record<string, any>,
-    opts?: InstallOptions
-  ) {
-    const namespace = opts?.namespace || "default";
-    const yaml = await manifest.render(manifestName, values, { namespace });
-    await this.install(manifestName, yaml, values, opts);
-  }
+  // async installFromModule(
+  //   manifestName: string,
+  //   manifest: Chart<any>,
+  //   values: Record<string, any>,
+  //   opts?: InstallOptions
+  // ) {
+  //   const namespace = opts?.namespace || "default";
+  //   const yaml = await manifest.renderToYAML(manifestName, values, {
+  //     namespace,
+  //   });
+  //   await this.install(manifestName, yaml, values, opts);
+  // }
 
   async installFromFile(
     manifestName: string,
@@ -105,7 +106,9 @@ export class FreightManager {
     });
 
     const manifest = await this._importManifest(chartPath);
-    const yaml = await manifest.render(manifestName, values, { namespace });
+    const yaml = await manifest.renderToYAML(manifestName, values, {
+      namespace,
+    });
     await this.install(manifestName, yaml, values, opts);
   }
 
@@ -130,9 +133,9 @@ export class FreightManager {
     }
   }
 
-  async list(opts?: { namespace?: string }) {
-    throw new Error("not implemented");
-  }
+  // async list(opts?: { namespace?: string }) {
+  //   throw new Error("not implemented");
+  // }
 
   async upgrade(
     manifestName: string,

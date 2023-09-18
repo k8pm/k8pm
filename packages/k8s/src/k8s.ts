@@ -16,7 +16,7 @@ export class K8sClient {
   apiHandlerMapping: Record<string, any> = {};
 
   constructor() {
-    this.logger = new Logger().child("k8s");
+    this.logger = new Logger().createLogger("k8s");
     this.kc.loadFromDefault();
     this.k8Core = this.kc.makeApiClient(CoreV1Api);
     this.k8Apps = this.kc.makeApiClient(AppsV1Api);

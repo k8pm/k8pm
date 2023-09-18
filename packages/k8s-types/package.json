@@ -1,5 +1,5 @@
 {
-  "name": "k8s",
+  "name": "k8s-types",
   "version": "0.0.0",
   "main": "./dist/index.ts",
   "types": "./dist/index.d.ts",
@@ -9,19 +9,11 @@
     "build": "tsc"
   },
   "devDependencies": {
-    "@types/js-yaml": "^4.0.6",
-    "@types/node": "^20.5.2",
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "^4.5.2"
   },
   "dependencies": {
-    "@kubernetes/client-node": "^0.18.1",
-    "cdk8s": "^2.10.0",
-    "cdk8s-plus-25": "^2.9.0",
-    "constructs": "^10.2.69",
-    "js-yaml": "^4.1.0",
-    "k8s-types": "workspace:*",
-    "logger": "workspace:*"
+    "constructs": "^10.2.69"
   }
 }

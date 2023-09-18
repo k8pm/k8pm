@@ -1,4 +1,6 @@
-module.exports = (babel) => {
+import type { PluginObj } from "@babel/core";
+
+module.exports = (babel: any): PluginObj => {
   const t = babel.types;
   return {
     name: "ksx-plugin",
@@ -7,7 +9,7 @@ module.exports = (babel) => {
         //get the opening element from jsxElement node
         const openingElement = path.node.openingElement;
         //tagname is name of tag like div, p etc
-        const tagName = openingElement.name.name;
+        const tagName = openingElement.name;
         // arguments for React.createElement function
         const args = [];
         //adds "div" or any tag as a string as one of the argument
@@ -30,7 +32,7 @@ module.exports = (babel) => {
           path.node.children
         );
         // replace jsxElement node with the call expression node made above
-        path.replaceWith(callExpression, path.node);
+        path.replaceWith(callExpression);
       },
     },
   };
