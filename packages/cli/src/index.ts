@@ -1,7 +1,8 @@
-import type { MyTestInterface } from "core";
+import { AppContainer } from "core";
+import { CthuluCli } from "./cli";
+import "./handlers/install";
 
-const testItem: MyTestInterface = {
-  name: "test",
-};
+const cli = AppContainer.get<CthuluCli>(CthuluCli.name);
 
-console.log(testItem);
+cli.parseArgs(process.argv.slice(2));
+cli.execute();

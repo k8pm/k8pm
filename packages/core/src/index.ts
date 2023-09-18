@@ -1,3 +1,1 @@
-export interface MyTestInterface {
-  name: string;
-}
+export * from "./ioc";

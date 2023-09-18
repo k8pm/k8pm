@@ -32,6 +32,16 @@ module.exports = {
   },
   rules: {
     "no-console": "off",
+    "import/no-named-as-default-member": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/naming-convention": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "prefer-named-capture-group": "off",
+    "@typescript-eslint/no-unsafe-return": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "tsdoc/syntax": "warn",
   },
   ignorePatterns: ["node_modules/", "dist/"],
 };

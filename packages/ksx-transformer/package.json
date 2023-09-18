@@ -1,5 +1,5 @@
 {
-  "name": "cli",
+  "name": "ksx-transformer",
   "version": "0.0.0",
   "main": "./dist/index.ts",
   "types": "./dist/index.d.ts",
@@ -9,15 +9,24 @@
     "build": "tsc"
   },
   "devDependencies": {
+    "@types/babel__core": "^7.20.2",
     "@types/node": "^20.5.2",
+    "@types/react-dom": "^18.2.7",
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "^4.5.2"
   },
   "dependencies": {
-    "arg": "^5.0.2",
+    "@babel/core": "^7.22.20",
+    "cdk8s": "^2.10.0",
+    "cdk8s-plus-25": "^2.9.0",
+    "constructs": "^10.2.69",
     "core": "workspace:*",
-    "reflect-metadata": "^0.1.13",
-    "typedi": "^0.10.0"
+    "js-yaml": "^4.1.0",
+    "logger": "workspace:*",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "yaml-to-json": "^0.3.0",
+    "zod": "^3.21.4"
   }
 }

@@ -17,7 +17,8 @@
     "strict": true,
     "strictNullChecks": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "target": "ES5"
   },
   "exclude": ["node_modules"]
 }

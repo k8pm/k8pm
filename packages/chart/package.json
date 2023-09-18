@@ -1,5 +1,5 @@
 {
-  "name": "cli",
+  "name": "chart",
   "version": "0.0.0",
   "main": "./dist/index.ts",
   "types": "./dist/index.d.ts",
@@ -15,9 +15,13 @@
     "typescript": "^4.5.2"
   },
   "dependencies": {
-    "arg": "^5.0.2",
-    "core": "workspace:*",
-    "reflect-metadata": "^0.1.13",
-    "typedi": "^0.10.0"
+    "cdk8s": "^2.10.0",
+    "cdk8s-plus-25": "^2.9.0",
+    "constructs": "^10.2.69",
+    "js-yaml": "^4.1.0",
+    "yaml-to-json": "^0.3.0",
+    "zod": "^3.21.4",
+    "logger": "workspace:*",
+    "core": "workspace:*"
   }
 }
