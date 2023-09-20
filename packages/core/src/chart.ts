@@ -3,7 +3,7 @@ import { App as Cdk8sApp, Chart as Cdk8sChart } from "cdk8s";
 import { Logger } from "logger";
 import type { z } from "zod";
 
-type Constructable<T> = new (...args: any[]) => T;
+// type Constructable<T> = new (...args: any[]) => T;
 
 export type ChartValues = Record<string, any>;
 
@@ -11,10 +11,10 @@ export interface ChartContext {
   namespace: string;
 }
 
-export interface Component<T> {
-  apiObject: Constructable<ApiObject>;
-  new (values: T, context: ChartContext): ApiObject;
-}
+// export interface Component<T> {
+//   apiObject: Constructable<ApiObject>;
+//   new (values: T, context: ChartContext): ApiObject;
+// }
 
 export type ComponentFactory<T> = (
   values: T,
@@ -44,18 +44,17 @@ export class Chart<T> {
     namespace: "default",
   };
   private logger = new Logger().createLogger("chart");
-
+  private parseValues(values: T) {
+    return this._schema?.safeParseAsync(values);
+  }
   addComponent(func: ComponentFactory<T>) {
     this._components.push(func);
   }
-  setSchema(schema: z.ZodType<any, z.ZodTypeDef, any>) {
+  schema(schema: z.ZodType<any, z.ZodTypeDef, any>) {
     this._schema = schema;
   }
-  setValues(values: T) {
+  values(values: T) {
     this._values = values;
-  }
-  parseValues(values: T) {
-    return this._schema?.safeParseAsync(values);
   }
   async renderToYAML(
     name: string,

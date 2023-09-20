@@ -1,20 +1,25 @@
 {
-  "name": "ksx-babel-plugin",
+  "name": "babel-plugin-ksx",
   "version": "0.0.0",
-  "main": "./dist/index.ts",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.js",
   "license": "MIT",
   "scripts": {
     "lint": "eslint .",
-    "build": "tsc"
+    "build": "tsc",
+    "test": "jest"
   },
   "devDependencies": {
     "@types/babel__core": "^7.20.2",
     "@types/node": "^20.5.2",
     "@types/react-dom": "^18.2.7",
+    "@types/jest": "^29.5.5",
     "eslint-config-custom": "workspace:*",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1",
     "tsconfig": "workspace:*",
-    "typescript": "^4.5.2"
+    "typescript": "^4.5.2",
+    "babel-preset-react": "^6.24.1"
   },
   "dependencies": {
     "@babel/core": "^7.22.20",
