@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint .",
-    "build": "tsc"
+    "build": "tsc",
+    "test": "echo 'noop'"
   },
   "devDependencies": {
     "@types/node": "^20.5.2",

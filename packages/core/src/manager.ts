@@ -1,7 +1,7 @@
 import path from "node:path";
 import type { LoggerInstance } from "@fr8/logger";
 import { Logger } from "@fr8/logger";
-import { K8sClient, ReleaseStatus, Substrate } from "k8s";
+import { K8sClient, ReleaseStatus, Substrate } from "@fr8/k8s";
 import type { Chart } from "./chart";
 
 interface InstallOptions {
