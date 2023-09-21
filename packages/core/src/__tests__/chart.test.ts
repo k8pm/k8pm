@@ -1,8 +1,11 @@
-import type { KubeServiceProps } from "@fr8/k8s-types";
+//import type { KubeServiceProps } from "@fr8/k8s-types";
 import { Chart } from "../chart";
 import { Service } from "../components";
 
-// jest.mock("logger", () => {
+jest.mock("cdk8s");
+//jest.mock("@fr8/k8s-types");
+// const mockLogger = jest.fn();
+// jest.mock("@fr8/logger", () => {
 //   return {
 //     Logger: mockLogger,
 //   };
@@ -33,6 +36,6 @@ describe("@fr8/core", () => {
         name: "my-service",
         namespace: "my-namespace",
       },
-    } as KubeServiceProps);
+    });
   });
 });

@@ -6,12 +6,25 @@ module.exports = {
   verbose: true,
   silent: false,
   rootDir: `./`,
+  moduleNameMapper: {
+    "^@fr8/(.*)$": "../<rootDir>/packages/$1",
+  },
   projects: [
     {
       displayName: "@fr8/core",
+      testMatch: ["<rootDir>/src/__tests__/**.test.ts"],
+      testPathIgnorePatterns: ["<rootDir>/dist/"],
       preset: "ts-jest",
-      testMatch: ["<rootDir>/packages/core/src/**/*.test.ts"],
-      testPathIgnorePatterns: ["<rootDir>/packages/core/dist/"],
+      rootDir: `./packages/core`,
+      moduleNameMapper: {
+        "^@fr8/(.*)$": "<rootDir>/../$1/src",
+      },
+      // preset: "ts-jest",
+      // watchman: false,
+      // haste: {
+      //   enableSymlinks: true,
+      // },
+      // //rootDir: `./packages/core`,
     },
   ],
 };

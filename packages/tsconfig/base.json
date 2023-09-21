@@ -18,7 +18,7 @@
     "strictNullChecks": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "ES5"
+    "target": "ES2015"
   },
   "exclude": ["node_modules", "src/**/*.test.ts"]
 }

@@ -47,12 +47,10 @@ export class Chart<T> {
     const parsedValues = (await this.parseValues({
       ...this._values,
       ...values,
-    })) as {
-      data: T;
-    };
+    })) as T;
 
-    this.logger.info("Parsed values", parsedValues.data);
-    this._values = parsedValues.data;
+    this.logger.info("Parsed values", parsedValues);
+    this._values = parsedValues;
 
     this._components.forEach((ComponentInstance: Component<any>) => {
       ComponentInstance.createComponent(chart, this._values, context);
