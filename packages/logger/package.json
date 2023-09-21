@@ -1,5 +1,5 @@
 {
-  "name": "logger",
+  "name": "@fr8/logger",
   "version": "0.0.0",
   "main": "./dist/index.ts",
   "types": "./dist/index.d.ts",

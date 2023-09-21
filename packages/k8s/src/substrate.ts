@@ -1,8 +1,8 @@
 import type { V1Secret } from "@kubernetes/client-node";
 import type { ApiObject } from "cdk8s";
 import yaml from "js-yaml";
-import type { LoggerInstance } from "logger";
-import { Logger } from "logger";
+import type { LoggerInstance } from "@fr8/logger";
+import { Logger } from "@fr8/logger";
 import type { K8sClient } from "./k8s";
 
 export enum ReleaseStatus {

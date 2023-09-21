@@ -1,6 +1,6 @@
 import path from "node:path";
-import type { LoggerInstance } from "logger";
-import { Logger } from "logger";
+import type { LoggerInstance } from "@fr8/logger";
+import { Logger } from "@fr8/logger";
 import { K8sClient, ReleaseStatus, Substrate } from "k8s";
 import type { Chart } from "./chart";
 
@@ -106,7 +106,7 @@ export class FreightManager {
     });
 
     const manifest = await this._importManifest(chartPath);
-    const yaml = await manifest.renderToYAML(manifestName, values, {
+    const yaml = await manifest.render(manifestName, values, {
       namespace,
     });
     await this.install(manifestName, yaml, values, opts);

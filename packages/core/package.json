@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint .",
-    "build": "tsc"
+    "build": "tsc",
+    "test": "jest"
   },
   "devDependencies": {
     "@types/jest": "^29.5.5",
@@ -26,7 +27,7 @@
     "js-yaml": "^4.1.0",
     "k8s": "workspace:*",
     "k8s-types": "workspace:*",
-    "logger": "workspace:*",
+    "@fr8/logger": "workspace:*",
     "reflect-metadata": "^0.1.13",
     "typedi": "^0.10.0",
     "yaml-to-json": "^0.3.0",

@@ -5,8 +5,8 @@ import {
   loadAllYaml,
 } from "@kubernetes/client-node";
 import type { ApiObject } from "cdk8s";
-import type { LoggerInstance } from "logger";
-import { Logger } from "logger";
+import type { LoggerInstance } from "@fr8/logger";
+import { Logger } from "@fr8/logger";
 
 export class K8sClient {
   logger: LoggerInstance;

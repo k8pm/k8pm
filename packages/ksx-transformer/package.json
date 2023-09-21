@@ -30,7 +30,7 @@
     "constructs": "^10.2.69",
     "core": "workspace:*",
     "js-yaml": "^4.1.0",
-    "logger": "workspace:*",
+    "@fr8/logger": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "yaml-to-json": "^0.3.0",

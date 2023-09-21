@@ -22,6 +22,6 @@
     "constructs": "^10.2.69",
     "js-yaml": "^4.1.0",
     "k8s-types": "workspace:*",
-    "logger": "workspace:*"
+    "@fr8/logger": "workspace:*"
   }
 }

@@ -20,5 +20,5 @@
     "experimentalDecorators": true,
     "target": "ES5"
   },
-  "exclude": ["node_modules", "__tests__"]
+  "exclude": ["node_modules", "src/**/*.test.ts"]
 }

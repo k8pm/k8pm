@@ -26,6 +26,9 @@ importers:
       '@babel/core':
         specifier: ^7.22.20
         version: 7.22.20
+      '@fr8/logger':
+        specifier: workspace:*
+        version: link:../logger
       cdk8s:
         specifier: ^2.10.0
         version: 2.64.7(constructs@10.2.70)
@@ -41,9 +44,6 @@ importers:
       js-yaml:
         specifier: ^4.1.0
         version: 4.1.0
-      logger:
-        specifier: workspace:*
-        version: link:../logger
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -93,6 +93,9 @@ importers:
       '@babel/core':
         specifier: ^7.22.20
         version: 7.22.20
+      '@fr8/logger':
+        specifier: workspace:*
+        version: link:../logger
       babel-plugin-ksx:
         specifier: workspace:*
         version: link:../babel-plugin-ksx
@@ -114,9 +117,6 @@ importers:
       js-yaml:
         specifier: ^4.1.0
         version: 4.1.0
-      logger:
-        specifier: workspace:*
-        version: link:../logger
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -206,6 +206,9 @@ importers:
 
   packages/core:
     dependencies:
+      '@fr8/logger':
+        specifier: workspace:*
+        version: link:../logger
       cdk8s:
         specifier: ^2.10.0
         version: 2.64.7(constructs@10.2.70)
@@ -227,9 +230,6 @@ importers:
       k8s-types:
         specifier: workspace:*
         version: link:../k8s-types
-      logger:
-        specifier: workspace:*
-        version: link:../logger
       reflect-metadata:
         specifier: ^0.1.13
         version: 0.1.13
@@ -279,6 +279,9 @@ importers:
 
   packages/k8s:
     dependencies:
+      '@fr8/logger':
+        specifier: workspace:*
+        version: link:../logger
       '@kubernetes/client-node':
         specifier: ^0.18.1
         version: 0.18.1
@@ -297,9 +300,6 @@ importers:
       k8s-types:
         specifier: workspace:*
         version: link:../k8s-types
-      logger:
-        specifier: workspace:*
-        version: link:../logger
     devDependencies:
       '@types/js-yaml':
         specifier: ^4.0.6
@@ -338,6 +338,9 @@ importers:
       '@babel/core':
         specifier: ^7.22.20
         version: 7.22.20
+      '@fr8/logger':
+        specifier: workspace:*
+        version: link:../logger
       babel-plugin-ksx:
         specifier: workspace:*
         version: link:../babel-plugin-ksx
@@ -359,9 +362,6 @@ importers:
       js-yaml:
         specifier: ^4.1.0
         version: 4.1.0
-      logger:
-        specifier: workspace:*
-        version: link:../logger
       react:
         specifier: ^18.2.0
         version: 18.2.0

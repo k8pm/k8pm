@@ -12,8 +12,8 @@ import {
   KubeService,
   KubeStatefulSet,
 } from "k8s-types";
-import type { LoggerInstance } from "logger";
-import { Logger } from "logger";
+import type { LoggerInstance } from "@fr8/logger";
+import { Logger } from "@fr8/logger";
 import type { ChartContext } from "./chart";
 
 const createProps = (
