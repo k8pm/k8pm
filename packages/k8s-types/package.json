@@ -1,5 +1,5 @@
 {
-  "name": "k8s-types",
+  "name": "@fr8/k8s-types",
   "version": "0.0.0",
   "main": "./dist/index.ts",
   "types": "./dist/index.d.ts",

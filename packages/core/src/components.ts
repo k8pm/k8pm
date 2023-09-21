@@ -1,6 +1,10 @@
 import type { ApiObject, Chart as Cdk8sChart } from "cdk8s";
-import type { KubeStatefulSetProps, KubeServiceProps } from "k8s-types";
-import { KubeStatefulSet, KubeService } from "k8s-types";
+import type {
+  KubeStatefulSetProps,
+  KubeServiceProps,
+  KubeConfigMapProps,
+} from "@fr8/k8s-types";
+import { KubeConfigMap, KubeStatefulSet, KubeService } from "@fr8/k8s-types";
 import type { ChartContext } from "./chart";
 
 export abstract class Component<T> {
@@ -19,5 +23,11 @@ export class StatefulSet extends Component<KubeStatefulSetProps> {
 export class Service extends Component<KubeServiceProps> {
   createComponent(chart: Cdk8sChart, args: KubeServiceProps): ApiObject {
     return new KubeService(chart, "statefulset", args);
+  }
+}
+
+export class ConfigMap extends Component<KubeConfigMapProps> {
+  createComponent(chart: Cdk8sChart, args: KubeConfigMapProps): ApiObject {
+    return new KubeConfigMap(chart, "statefulset", args);
   }
 }

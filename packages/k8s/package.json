@@ -1,5 +1,5 @@
 {
-  "name": "k8s",
+  "name": "@fr8/k8s",
   "version": "0.0.0",
   "main": "./dist/index.ts",
   "types": "./dist/index.d.ts",
@@ -21,7 +21,7 @@
     "cdk8s-plus-25": "^2.9.0",
     "constructs": "^10.2.69",
     "js-yaml": "^4.1.0",
-    "k8s-types": "workspace:*",
+    "@fr8/k8s-types": "workspace:*",
     "@fr8/logger": "workspace:*"
   }
 }

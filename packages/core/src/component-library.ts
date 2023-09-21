@@ -5,13 +5,13 @@ import type {
   KubeServiceProps,
   KubeStatefulSetProps,
   ServicePort,
-} from "k8s-types";
+} from "@fr8/k8s-types";
 import {
   IntOrString,
   KubeDeployment,
   KubeService,
   KubeStatefulSet,
-} from "k8s-types";
+} from "@fr8/k8s-types";
 import type { LoggerInstance } from "@fr8/logger";
 import { Logger } from "@fr8/logger";
 import type { ChartContext } from "./chart";

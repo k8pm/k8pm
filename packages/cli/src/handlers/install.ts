@@ -1,4 +1,4 @@
-import { AppService } from "core";
+import { AppService } from "@fr8/core";
 import arg from "arg";
 import type { ICommandHandler } from "../types";
 

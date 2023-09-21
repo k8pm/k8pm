@@ -1,4 +1,4 @@
-import type { KubeServiceProps } from "k8s-types";
+import type { KubeServiceProps } from "@fr8/k8s-types";
 import { Chart } from "../chart";
 import { Service } from "../components";
 
@@ -14,7 +14,7 @@ import { Service } from "../components";
 //   };
 // });
 
-describe("core", () => {
+describe("@fr8/core", () => {
   it("should work", () => {
     const chart = new Chart();
 

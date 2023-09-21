@@ -1,4 +1,4 @@
-import { AppContainer } from "core";
+import { AppContainer } from "@fr8/core";
 import { CthuluCli } from "./cli";
 import "./handlers/install";
 
