@@ -10,25 +10,24 @@
     "test": "jest"
   },
   "devDependencies": {
-    "eslint-config-custom": "workspace:*",
-    "tsconfig": "workspace:*",
-    "typescript": "^4.5.2",
     "@types/jest": "^29.5.5",
     "babel-jest": "^29.7.0",
+    "eslint-config-custom": "workspace:*",
     "jest": "^29.7.0",
-    "ts-jest": "^29.1.1"
+    "ts-jest": "^29.1.1",
+    "tsconfig": "workspace:*",
+    "typescript": "^4.5.2"
   },
   "dependencies": {
+    "@fr8/k8s": "workspace:*",
+    "@fr8/k8s-types": "workspace:*",
+    "@fr8/logger": "workspace:*",
     "cdk8s": "^2.10.0",
     "cdk8s-plus-25": "^2.9.0",
     "constructs": "^10.2.69",
-    "@fr8/k8s-types": "workspace:*",
-    "@fr8/logger": "workspace:*",
-    "js-yaml": "^4.1.0",
-    "@fr8/k8s": "workspace:*",
     "reflect-metadata": "^0.1.13",
     "typedi": "^0.10.0",
-    "yaml-to-json": "^0.3.0",
+    "yaml": "^2.3.2",
     "zod": "^3.21.4"
   }
 }

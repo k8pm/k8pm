@@ -14,12 +14,14 @@ export interface ChartContext {
 
 export type ComponentFactory<T> = (
   values: T,
-  context: ChartContext,
-  chart: Cdk8sChart
-) => ApiObject;
+  context: ChartContext
+) => Component<any>;
 
 export class Chart<T> {
-  private _components: Component<any>[] = [];
+  private app = new Cdk8sApp();
+  private chart = new Cdk8sChart(this.app, "chart");
+
+  private _components: ComponentFactory<any>[] = [];
   private _schema?: z.Schema = undefined;
   private _values: T = {} as T;
 
@@ -27,35 +29,40 @@ export class Chart<T> {
   private parseValues(values: T) {
     return this._schema?.safeParseAsync(values);
   }
-  addComponent(component: Component<T>) {
-    this._components.push(component);
+  addComponent(factory: ComponentFactory<T>) {
+    this._components.push(factory);
   }
   schema(schema: z.ZodType<any, z.ZodTypeDef, any>) {
     this._schema = schema;
   }
   values(values: T) {
-    this._values = values;
-  }
-  async render(
-    name: string,
-    values: Record<string, any>,
-    context: ChartContext
-  ) {
-    const app = new Cdk8sApp();
-    const chart = new Cdk8sChart(app, name);
-
-    const parsedValues = (await this.parseValues({
+    this._values = {
       ...this._values,
       ...values,
-    })) as T;
+    };
+  }
 
-    this.logger.info("Parsed values", parsedValues);
-    this._values = parsedValues;
+  async render(name: string, values: Partial<T>, context: ChartContext) {
+    // const app = new Cdk8sApp();
+    // const chart = new Cdk8sChart(app, name);
 
-    this._components.forEach((ComponentInstance: Component<any>) => {
-      ComponentInstance.createComponent(chart, this._values, context);
+    const combinedValues = {
+      ...this._values,
+      ...values,
+    };
+
+    const currentValues = this._schema
+      ? ((await this.parseValues(combinedValues)) as T)
+      : combinedValues;
+
+    this.logger.info("Values:", currentValues);
+    this._values = currentValues;
+
+    this._components.forEach((factory: ComponentFactory<any>) => {
+      const component = factory(currentValues, context);
+      return component.createComponent(this.chart);
     });
 
-    return app.synthYaml();
+    return this.app.synthYaml();
   }
 }

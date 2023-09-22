@@ -6,9 +6,9 @@ module.exports = {
   verbose: true,
   silent: false,
   rootDir: `./`,
-  moduleNameMapper: {
-    "^@fr8/(.*)$": "../<rootDir>/packages/$1",
-  },
+  // moduleNameMapper: {
+  //   "^@fr8/(.*)$": "../<rootDir>/packages/$1",
+  // },
   projects: [
     {
       displayName: "@fr8/core",
@@ -19,12 +19,6 @@ module.exports = {
       moduleNameMapper: {
         "^@fr8/(.*)$": "<rootDir>/../$1/src",
       },
-      // preset: "ts-jest",
-      // watchman: false,
-      // haste: {
-      //   enableSymlinks: true,
-      // },
-      // //rootDir: `./packages/core`,
     },
   ],
 };

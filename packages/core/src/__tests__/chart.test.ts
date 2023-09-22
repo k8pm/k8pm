@@ -1,41 +1,59 @@
 //import type { KubeServiceProps } from "@fr8/k8s-types";
+import { StatefulSet } from "cdk8s-plus-25";
 import { Chart } from "../chart";
 import { Service } from "../components";
 
-jest.mock("cdk8s");
-//jest.mock("@fr8/k8s-types");
-// const mockLogger = jest.fn();
-// jest.mock("@fr8/logger", () => {
-//   return {
-//     Logger: mockLogger,
-//   };
-// });
-//const mockParseAsync = jest.fn();
-// jest.mock("zod", () => {
-//   return {
-//     parseAsync: mockParseAsync,
-//   };
-// });
+//jest.mock("cdk8s");
 
 describe("@fr8/core", () => {
-  it("should work", () => {
-    const chart = new Chart();
+  it("should work", async () => {
+    const chart = new Chart<{ service: string }>();
+
+    const serviceName = "my-service";
+    const namespace = "my-namespace";
+
+    // set default values
+    chart.values({
+      service: serviceName,
+    });
 
     chart.addComponent(
-      new Service({
-        metadata: {
-          name: "my-service",
-        },
-      })
+      (values, context) =>
+        new Service({
+          metadata: {
+            name: serviceName,
+            labels: {
+              service: values.service,
+              namespace: context.namespace,
+            },
+          },
+          spec: {
+            selector: {
+              service: serviceName,
+            },
+            ports: [
+              {
+                port: 80,
+              },
+            ],
+          },
+        })
     );
 
-    expect(
-      chart.render("my-release", {}, { namespace: "my-namespace" })
-    ).toEqual({
-      metadata: {
-        name: "my-service",
-        namespace: "my-namespace",
-      },
-    });
+    const yml = await chart.render("my-release", {}, { namespace });
+
+    expect(yml).toEqual(`apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    namespace: my-namespace
+    service: my-service
+  name: my-service
+spec:
+  ports:
+    - port: 80
+  selector:
+    service: my-service
+`);
   });
 });
