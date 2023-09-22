@@ -28,8 +28,7 @@ export class StatefulSet extends Component<KubeStatefulSetProps> {
 export class Service extends Component<KubeServiceProps> {
   name = "Service";
   createComponent(chart: Cdk8sChart): ApiObject {
-    const svc = new KubeService(chart, this.name, this.args);
-    return svc;
+    return new KubeService(chart, this.name, this.args);
   }
 }
 
