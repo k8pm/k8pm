@@ -1,4 +1,3 @@
-import type { ApiObject } from "cdk8s";
 import { App as Cdk8sApp, Chart as Cdk8sChart } from "cdk8s";
 import { Logger } from "@fr8/logger";
 import type { z } from "zod";
@@ -18,7 +17,7 @@ export type ComponentFactory<T> = (
 ) => Component<any>;
 
 export class Chart<T> {
-  private _version: string = "0.0.1";
+  private _version = "0.0.1";
   private _components: ComponentFactory<any>[] = [];
   private _schema?: z.Schema = undefined;
   private _values: T = {} as T;

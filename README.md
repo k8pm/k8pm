@@ -1,81 +1,77 @@
-# Turborepo starter
+# KPM
 
-This is an official starter Turborepo.
+**This project is in ALPHA and is not recommended for production use!**
 
-## Using this example
+A Kubernetes package manager for TypeScript.
 
-Run the following command:
+Write your charts in Typescript:
 
-```sh
-npx create-turbo@latest
+```javascript
+// chart.ts
+const chart = new Chart<{ service: string }>();
+
+const serviceName = "my-service";
+const namespace = "my-namespace";
+
+chart.values({
+  service: serviceName,
+});
+
+chart.addComponent(
+  (values, context) =>
+    new Service({
+      metadata: {
+        name: serviceName,
+        labels: {
+          service: values.service,
+          namespace: context.namespace,
+        },
+      },
+      spec: {
+        selector: {
+          service: serviceName,
+        },
+        ports: [
+          {
+            port: 80,
+          },
+        ],
+      },
+    })
+);
 ```
 
-## What's inside?
+And install your chart using the `kpm` CLI:
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
+```bash
+kpm install my-release ./chart.ts --namespace my-namespace
 ```
 
-### Develop
+You can also manage your charts programatically:
 
-To develop all apps and packages, run the following command:
+```javascript
+import chart from "./chart";
 
-```
-cd my-turborepo
-pnpm dev
-```
+const manager = new FreightManager();
 
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
+await manager.install("my-release", chart);
+await manager.uninstall("my-release");
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+# Q/A
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+### What does KPM stand for?
 
-```
-npx turbo link
-```
+KPM stands for KPM. It does **not** stand for Kubernetes Package Manager, as that would make use of a Linux Foundation trademark for "Kubernetes".
 
-## Useful Links
+### Is this just a wrapper around Helm?
 
-Learn more about the power of Turborepo:
+Nope. Helm is not a dependency. We use the Kubernetes API directly.
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+### Is this a replacement for Helm?
+
+That is the goal.
+
+### Why?
+
+Life is too short to spend it writing YAML.

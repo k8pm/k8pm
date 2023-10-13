@@ -1,5 +1,5 @@
-import { AppService } from "@fr8/core";
 import arg from "arg";
+import { AppService } from "../ioc";
 import type { ICommandHandler } from "../types";
 
 const command = "install";

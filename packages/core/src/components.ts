@@ -1,11 +1,10 @@
-import type { ApiObject, Chart as Cdk8sChart, App } from "cdk8s";
+import type { ApiObject, Chart as Cdk8sChart } from "cdk8s";
 import type {
   KubeStatefulSetProps,
   KubeServiceProps,
   KubeConfigMapProps,
 } from "@fr8/k8s-types";
 import { KubeConfigMap, KubeStatefulSet, KubeService } from "@fr8/k8s-types";
-import type { ChartContext } from "./chart";
 
 export abstract class Component<T> {
   name = "Component";

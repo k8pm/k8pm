@@ -1,4 +1,4 @@
-import { AppContainer, AppService } from "@fr8/core";
+import { AppContainer, AppService } from "./ioc";
 import type { ICommandHandler } from "./types";
 
 @AppService()
