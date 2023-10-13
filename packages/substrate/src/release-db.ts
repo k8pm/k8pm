@@ -61,7 +61,7 @@ export class ReleaseDb {
     if (!release) {
       throw new Error("Release not found");
     }
-    this.secretsDb.update(name, meta);
+    await this.secretsDb.update(name, meta);
   }
   async deleteRelease(name: string): Promise<void> {
     await this.secretsDb.delete(name);
