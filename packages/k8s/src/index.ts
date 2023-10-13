@@ -1,2 +1,3 @@
-export * from "./k8s";
-export * from "./substrate";
+export * from "./abstract-api";
+export * from "./namespace-api";
+export * from "./secrets-api";

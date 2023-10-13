@@ -18,14 +18,12 @@ export type ComponentFactory<T> = (
 ) => Component<any>;
 
 export class Chart<T> {
-  private app = new Cdk8sApp();
-  private chart = new Cdk8sChart(this.app, "chart");
-
+  private _version: string = "0.0.1";
   private _components: ComponentFactory<any>[] = [];
   private _schema?: z.Schema = undefined;
   private _values: T = {} as T;
-
   private logger = new Logger().createLogger("chart");
+
   private parseValues(values: T) {
     return this._schema?.safeParseAsync(values);
   }
@@ -41,10 +39,13 @@ export class Chart<T> {
       ...values,
     };
   }
+  version(version: string) {
+    this._version = version;
+  }
 
   async render(name: string, values: Partial<T>, context: ChartContext) {
-    // const app = new Cdk8sApp();
-    // const chart = new Cdk8sChart(app, name);
+    const app = new Cdk8sApp();
+    const chart = new Cdk8sChart(app, name);
 
     const combinedValues = {
       ...this._values,
@@ -60,9 +61,9 @@ export class Chart<T> {
 
     this._components.forEach((factory: ComponentFactory<any>) => {
       const component = factory(currentValues, context);
-      return component.createComponent(this.chart);
+      return component.createComponent(chart);
     });
 
-    return this.app.synthYaml();
+    return app.synthYaml();
   }
 }

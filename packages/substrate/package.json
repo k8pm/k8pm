@@ -1,5 +1,5 @@
 {
-  "name": "@fr8/core",
+  "name": "@fr8/substrate",
   "version": "0.0.0",
   "main": "./dist/index.ts",
   "types": "./dist/index.d.ts",
@@ -7,14 +7,12 @@
   "scripts": {
     "lint": "eslint .",
     "build": "tsc",
-    "test": "jest"
+    "test": "echo 'noop'"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.5",
-    "babel-jest": "^29.7.0",
+    "@types/js-yaml": "^4.0.6",
+    "@types/node": "^20.5.2",
     "eslint-config-custom": "workspace:*",
-    "jest": "^29.7.0",
-    "ts-jest": "^29.1.1",
     "tsconfig": "workspace:*",
     "typescript": "^4.5.2"
   },
@@ -22,13 +20,6 @@
     "@fr8/k8s": "workspace:*",
     "@fr8/k8s-types": "workspace:*",
     "@fr8/logger": "workspace:*",
-    "@fr8/substrate": "workspace:*",
-    "cdk8s": "^2.10.0",
-    "cdk8s-plus-25": "^2.9.0",
-    "constructs": "^10.2.69",
-    "reflect-metadata": "^0.1.13",
-    "typedi": "^0.10.0",
-    "yaml": "^2.3.2",
-    "zod": "^3.21.4"
+    "@kubernetes/client-node": "^0.18.1"
   }
 }

@@ -1,13 +1,17 @@
 import path from "node:path";
 import type { LoggerInstance } from "@fr8/logger";
 import { Logger } from "@fr8/logger";
-import { K8sClient, ReleaseStatus, Substrate } from "@fr8/k8s";
+import { Substrate } from "@fr8/substrate";
+import { AbstractApi, AbstractApiMethodNames, NamespaceApi } from "@fr8/k8s";
 import type { Chart } from "./chart";
+import { apply } from "./apply";
+
+const DEFAULT_VERSION = "0.0.1";
 
 interface InstallOptions {
-  namespace?: string;
   createNamespace?: boolean;
   releaseName?: string;
+  version?: string;
 }
 
 interface UpgradeOptions extends InstallOptions {
@@ -15,14 +19,18 @@ interface UpgradeOptions extends InstallOptions {
 }
 
 export class FreightManager {
-  api: K8sClient;
-  release: Substrate;
+  namespace: string;
+  releaseApi: Substrate;
+  namespaceApi: NamespaceApi<any>;
+  abstractApi: AbstractApi;
   logger: LoggerInstance;
 
-  constructor() {
+  constructor(namespace?: string) {
+    this.namespace = namespace || "default";
     this.logger = new Logger().createLogger("manager");
-    this.api = new K8sClient();
-    this.release = new Substrate(this.api);
+    this.releaseApi = new Substrate(namespace || "default");
+    this.namespaceApi = new NamespaceApi(namespace || "default");
+    this.abstractApi = new AbstractApi();
   }
 
   async _importManifest(importPath: string) {
@@ -35,45 +43,52 @@ export class FreightManager {
    * Based on common install options determine whether to create a new namespace,
    * use an existing namespace, or throw an error.
    */
-  async _handleInstallOptions(namespace: string, opts?: InstallOptions) {
-    const existingNamespace = await this.api.namespace.exists(namespace);
-
-    if (!existingNamespace) {
+  async _handleNamespace(namespace: string, opts?: InstallOptions) {
+    try {
+      await this.namespaceApi.get();
+      this.logger.debug("Using existing namespace", { namespace });
+    } catch (err) {
       if (!opts?.createNamespace) {
         throw new Error("Namespace doesn't exist");
       } else {
         this.logger.info("Creating namespace", { namespace });
-        await this.api.namespace.create(namespace);
+        await this.namespaceApi.create();
       }
-    } else {
-      this.logger.debug("Using existing namespace", { namespace });
     }
   }
   async install(
-    manifestName: string,
+    chartName: string,
+    releaseName: string,
     yaml: string,
     values: Record<string, any>,
     opts?: InstallOptions
   ) {
-    const namespace = opts?.namespace || "default";
-    this.logger.info("Installing manifest from file", {
-      manifestName,
+    this.logger.info("Installing chart from file", {
+      chartName,
       yaml,
       values,
     });
 
-    const release = await this.release.getRelease(manifestName, namespace);
+    await this._handleNamespace(this.namespace, opts);
 
-    if (release) {
-      throw new Error(`"${manifestName}" is already installed in ${namespace}`);
+    const chartInstalled = await this.releaseApi.exists(chartName);
+
+    if (chartInstalled) {
+      throw new Error(
+        `"${chartName}" is already installed in ${this.namespace}`
+      );
     }
 
-    await this._handleInstallOptions(namespace, opts);
-
     try {
-      this.logger.info(`Applying ${manifestName}`);
-      await this.api.namespace.install(namespace, yaml);
-      await this.release.create(manifestName, namespace, yaml);
+      this.logger.info(`Applying ${chartName}`);
+      await apply(yaml, AbstractApiMethodNames.CREATE);
+      const release = await this.releaseApi.install(
+        chartName,
+        releaseName,
+        opts?.version || DEFAULT_VERSION,
+        yaml
+      );
+      this.logger.info("Release installed", { release });
     } catch (err) {
       this.logger.error("Install error", err);
     }
@@ -93,41 +108,48 @@ export class FreightManager {
   // }
 
   async installFromFile(
-    manifestName: string,
+    releaseName: string,
     chartPath: string,
     values: Record<string, any>,
     opts?: InstallOptions
   ) {
-    const namespace = opts?.namespace || "default";
     this.logger.info("Installing manifest from file", {
-      manifestName,
       chartPath,
+      releaseName,
       values,
     });
 
     const manifest = await this._importManifest(chartPath);
-    const yaml = await manifest.render(manifestName, values, {
-      namespace,
+    const yaml = await manifest.render(releaseName, values, {
+      namespace: this.namespace,
     });
-    await this.install(manifestName, yaml, values, opts);
+
+    const chartName = chartPath.split("/").pop()?.split(".").shift();
+
+    if (!chartName) {
+      throw new Error("Could not determine chart name");
+    }
+    await this.install(chartName, releaseName, yaml, values, opts);
   }
 
-  async uninstall(manifestName: string, opts?: { namespace?: string }) {
+  async uninstall(chartName: string, opts?: { namespace?: string }) {
     const namespace = opts?.namespace || "default";
     this.logger.info("Uninstalling chart", {
-      manifestName,
+      chartName,
     });
 
-    const release = await this.release.getRelease(manifestName, namespace);
+    const exists = await this.releaseApi.exists(chartName);
 
-    if (!release) {
-      throw new Error(`"${manifestName}" is not installed in "${namespace}"`);
+    if (!exists) {
+      throw new Error(`"${chartName}" is not installed in "${namespace}"`);
     }
+    const release = await this.releaseApi.get(chartName);
 
     try {
-      this.logger.info(`Deleting ${manifestName}`);
-      await this.api.namespace.uninstall(namespace, release.manifest);
-      await this.release.delete(namespace, manifestName);
+      this.logger.info(`Deleting ${chartName}`);
+      // @todo: only delete the chart resources
+      await apply(release?.yml || "", AbstractApiMethodNames.DELETE);
+      await this.releaseApi.uninstall(chartName);
     } catch (err) {
       this.logger.error("Uninstall error", err);
     }
@@ -138,35 +160,33 @@ export class FreightManager {
   // }
 
   async upgrade(
-    manifestName: string,
+    releaseName: string,
+    chartName: string,
     yaml: string,
     values: Record<string, any>,
     opts?: UpgradeOptions
   ) {
-    const namespace = opts?.namespace || "default";
     this.logger.info("Upgrading manifest from file", {
-      manifestName,
+      chartName,
       yaml,
       values,
     });
 
-    const existing = await this.release.getRelease(manifestName, namespace);
+    const existing = await this.releaseApi.exists(releaseName);
 
     if (!existing && !opts?.install) {
-      throw new Error(`"${manifestName}" is not installed in "${namespace}"`);
+      throw new Error(`"${chartName}" is not installed in "${this.namespace}"`);
     }
 
-    await this._handleInstallOptions(namespace, opts);
+    await this._handleNamespace(this.namespace, opts);
 
     try {
-      this.logger.info(`Applying ${manifestName}`);
-      await this.api.namespace.upgrade(namespace, yaml);
-      await this.release.update(
-        manifestName,
-        namespace,
-        "0.1.0", //@todo: get version from chart
-        ReleaseStatus.DEPLOYED,
-        yaml
+      this.logger.info(`Applying ${chartName}`);
+      await apply(yaml, AbstractApiMethodNames.PATCH);
+      await this.releaseApi.upgrade(
+        releaseName,
+        yaml,
+        opts?.version || DEFAULT_VERSION
       );
     } catch (err) {
       this.logger.error("Install error", err);
