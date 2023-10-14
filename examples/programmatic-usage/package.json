@@ -1,14 +1,14 @@
 {
-  "name": "@fr8/simple-chart-example",
+  "name": "@fr8/programmatic-usage-example",
   "version": "0.0.0",
   "main": "./dist/chart.js",
-  "types": "./dist/chart.d.ts",
+  "types": "./dist/index.d.ts",
   "license": "MIT",
   "scripts": {
     "lint": "eslint .",
     "build": "tsc",
     "test": "echo 'noop'",
-    "install-example": "kpm install my-chart ./dist/chart.js"
+    "run-example": "node ./dist/chart.js"
   },
   "devDependencies": {
     "@types/node": "^20.5.2",
@@ -19,6 +19,7 @@
   "dependencies": {
     "@fr8/cli": "workspace:*",
     "@fr8/core": "workspace:*",
-    "@fr8/components": "workspace:*"
+    "@fr8/components": "workspace:*",
+    "@fr8/simple-chart-example": "workspace:*"
   }
 }

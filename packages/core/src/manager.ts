@@ -1,5 +1,4 @@
 import path from "node:path";
-import { cwd } from "node:process";
 import type { LoggerInstance } from "@fr8/logger";
 import { Logger } from "@fr8/logger";
 import { Substrate } from "@fr8/substrate";
@@ -95,18 +94,18 @@ export class FreightManager {
     }
   }
 
-  // async installFromModule(
-  //   manifestName: string,
-  //   manifest: Chart<any>,
-  //   values: Record<string, any>,
-  //   opts?: InstallOptions
-  // ) {
-  //   const namespace = opts?.namespace || "default";
-  //   const yaml = await manifest.renderToYAML(manifestName, values, {
-  //     namespace,
-  //   });
-  //   await this.install(manifestName, yaml, values, opts);
-  // }
+  async installFromModule(
+    chartName: string,
+    releaseName: string,
+    chart: Chart<any>,
+    values: Record<string, any>,
+    opts?: InstallOptions
+  ) {
+    const yaml = await chart.render(chartName, values, {
+      namespace: this.namespace,
+    });
+    await this.install(chartName, releaseName, yaml, values, opts);
+  }
 
   async installFromFile(
     releaseName: string,

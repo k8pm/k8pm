@@ -3,8 +3,14 @@ import type {
   KubeStatefulSetProps,
   KubeServiceProps,
   KubeConfigMapProps,
+  KubeDeploymentProps,
 } from "@fr8/k8s-types";
-import { KubeConfigMap, KubeStatefulSet, KubeService } from "@fr8/k8s-types";
+import {
+  KubeConfigMap,
+  KubeStatefulSet,
+  KubeService,
+  KubeDeployment,
+} from "@fr8/k8s-types";
 
 export abstract class Component<T> {
   name = "Component";
@@ -21,6 +27,13 @@ export class StatefulSet extends Component<KubeStatefulSetProps> {
   name = "StatefulSet";
   createComponent(chart: Cdk8sChart): ApiObject {
     return new KubeStatefulSet(chart, this.name, this.args);
+  }
+}
+
+export class Deployment extends Component<KubeDeploymentProps> {
+  name = "Deployment";
+  createComponent(chart: Cdk8sChart): ApiObject {
+    return new KubeDeployment(chart, this.name, this.args);
   }
 }
 

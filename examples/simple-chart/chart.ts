@@ -1,14 +1,20 @@
 import { Chart } from "@fr8/core";
-import { Service } from "@fr8/components";
+import { Service, StatefulSet } from "@fr8/components";
 
-export const chart = new Chart<{ service: string }>();
+interface ChartValues {
+  service: string;
+}
+
+export const chart = new Chart<ChartValues>();
 
 const serviceName = "my-service";
 
+// Default values
 chart.values({
   service: serviceName,
 });
 
+// Service
 chart.addComponent(
   (values, context) =>
     new Service({
@@ -29,6 +35,50 @@ chart.addComponent(
             port: 80,
           },
         ],
+      },
+    })
+);
+
+// Stateful Set
+chart.addComponent(
+  (values, context) =>
+    new StatefulSet({
+      metadata: {
+        name: serviceName,
+        namespace: context.namespace,
+        labels: {
+          service: values.service,
+          namespace: context.namespace,
+        },
+      },
+      spec: {
+        serviceName,
+        selector: {
+          matchLabels: {
+            service: serviceName,
+          },
+        },
+        replicas: 1,
+        template: {
+          metadata: {
+            labels: {
+              service: serviceName,
+            },
+          },
+          spec: {
+            containers: [
+              {
+                name: serviceName,
+                image: "nginx:latest",
+                ports: [
+                  {
+                    containerPort: 80,
+                  },
+                ],
+              },
+            ],
+          },
+        },
       },
     })
 );

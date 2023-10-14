@@ -36,6 +36,34 @@ importers:
         specifier: ^4.5.2
         version: 4.9.5
 
+  examples/programmatic-usage:
+    dependencies:
+      '@fr8/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+      '@fr8/components':
+        specifier: workspace:*
+        version: link:../../packages/components
+      '@fr8/core':
+        specifier: workspace:*
+        version: link:../../packages/core
+      '@fr8/simple-chart-example':
+        specifier: workspace:*
+        version: link:../simple-chart
+    devDependencies:
+      '@types/node':
+        specifier: ^20.5.2
+        version: 20.5.8
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../../packages/eslint-config-custom
+      tsconfig:
+        specifier: workspace:*
+        version: link:../../packages/tsconfig
+      typescript:
+        specifier: ^4.5.2
+        version: 4.9.5
+
   examples/simple-chart:
     dependencies:
       '@fr8/cli':
