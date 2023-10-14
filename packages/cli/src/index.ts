@@ -1,8 +1,10 @@
-import { AppContainer } from "./ioc";
-import { CthuluCli } from "./cli";
+import "reflect-metadata";
+import "./logger";
 import "./handlers/install";
+import { CLI } from "./cli";
+import { AppContainer } from "./ioc";
 
-const cli = AppContainer.get<CthuluCli>(CthuluCli.name);
+const cli = AppContainer.get<CLI>(CLI);
 
 cli.parseArgs(process.argv.slice(2));
 cli.execute();

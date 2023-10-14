@@ -2,6 +2,11 @@ import type { AbstractApiMethodNames } from "@fr8/k8s";
 import { AbstractApi } from "@fr8/k8s";
 import YAML from "yaml";
 
+/**
+ * Parse YAML string and call the appropriate k8s API method
+ * @param yml - The YAML string to parse
+ * @param action - The k8s API method to call (e.g. create, update, delete)
+ */
 export const apply = async (yml: string, action: AbstractApiMethodNames) => {
   const abstractApi = new AbstractApi();
   const components = yml.split("---").map((y) => YAML.parse(y));
@@ -18,23 +23,18 @@ export const apply = async (yml: string, action: AbstractApiMethodNames) => {
 
   await Promise.all(
     manifests.map(async (manifest) => {
-      const { kind, metadata, spec } = manifest;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- we know this is a string
+      const { kind, metadata } = manifest;
       const methodName = abstractApi.getMethodName(action, kind);
       const api = abstractApi.getApi(kind);
+
       const namespace = metadata.namespace;
-      const body = spec;
 
       if (!namespace) {
         throw new Error("Namespace is required");
       }
 
-      try {
-        const result = await api[methodName](namespace, body);
-        console.log(result);
-      } catch (err) {
-        console.log(err);
-      }
+      const result = await api[methodName](namespace, manifest);
+      return result;
     })
   );
 };

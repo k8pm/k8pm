@@ -1,3 +1,9 @@
+export interface CLIInterface {
+  argv?: string[];
+  command?: string;
+  parseArgs: (args: string[]) => void;
+  execute: () => void;
+}
 export interface Option {
   name: string;
   description: string;
@@ -9,7 +15,7 @@ export interface Arg {
   description: string;
 }
 
-export interface ICommandHandler {
+export interface CommandHandlerInterface {
   name: string;
   description: string;
   args: Arg[];

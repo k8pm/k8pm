@@ -1,8 +1,12 @@
+![The KPM mascot -- Cthulhu](./kpm-logo.png)
+
 # KPM
 
-**This project is in ALPHA and is not recommended for production use!**
-
 A Kubernetes package manager for TypeScript.
+
+**!!! This project is currently in ALPHA and is not recommended for production use !!!**
+
+## Usage
 
 Write your charts in Typescript:
 

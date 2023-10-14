@@ -1,4 +1,5 @@
 import path from "node:path";
+import { cwd } from "node:process";
 import type { LoggerInstance } from "@fr8/logger";
 import { Logger } from "@fr8/logger";
 import { Substrate } from "@fr8/substrate";
@@ -33,10 +34,10 @@ export class FreightManager {
     this.abstractApi = new AbstractApi();
   }
 
-  async _importManifest(importPath: string) {
-    const module = await import(path.resolve(importPath));
-    const manifest = module.default as Chart<any>;
-    return manifest;
+  async _importChart(importPath: string) {
+    const pathToChart = path.resolve(importPath);
+    const module = await import(pathToChart);
+    return module.chart as Chart<any>;
   }
 
   /**
@@ -119,7 +120,7 @@ export class FreightManager {
       values,
     });
 
-    const manifest = await this._importManifest(chartPath);
+    const manifest = await this._importChart(chartPath);
     const yaml = await manifest.render(releaseName, values, {
       namespace: this.namespace,
     });
@@ -128,6 +129,9 @@ export class FreightManager {
 
     if (!chartName) {
       throw new Error("Could not determine chart name");
+    }
+    if (!yaml) {
+      throw new Error("Could not render chart");
     }
     await this.install(chartName, releaseName, yaml, values, opts);
   }
@@ -181,7 +185,7 @@ export class FreightManager {
     await this._handleNamespace(this.namespace, opts);
 
     try {
-      this.logger.info(`Applying ${chartName}`);
+      this.logger.info(`Upgrading ${chartName}`);
       await apply(yaml, AbstractApiMethodNames.PATCH);
       await this.releaseApi.upgrade(
         releaseName,
@@ -189,7 +193,7 @@ export class FreightManager {
         opts?.version || DEFAULT_VERSION
       );
     } catch (err) {
-      this.logger.error("Install error", err);
+      this.logger.error("Upgrade error", err);
     }
   }
 }

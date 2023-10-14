@@ -1,13 +1,14 @@
 {
-  "name": "@fr8/logger",
+  "name": "@fr8/simple-chart-example",
   "version": "0.0.0",
-  "main": "./dist/index.js",
+  "main": "./dist/chart.js",
   "types": "./dist/index.d.ts",
   "license": "MIT",
   "scripts": {
     "lint": "eslint .",
     "build": "tsc",
-    "test": "echo 'noop'"
+    "test": "echo 'noop'",
+    "install-example": "kpm install my-chart ./dist/chart.js"
   },
   "devDependencies": {
     "@types/node": "^20.5.2",
@@ -16,6 +17,8 @@
     "typescript": "^4.5.2"
   },
   "dependencies": {
-    "winston": "^3.10.0"
+    "@fr8/cli": "workspace:*",
+    "@fr8/core": "workspace:*",
+    "@fr8/components": "workspace:*"
   }
 }

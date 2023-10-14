@@ -10,6 +10,8 @@ export interface ReleaseMeta {
   yml: string;
 }
 
+const KPM_RECORD_PREFIX = "kpm";
+
 export class ReleaseDb {
   secretsDb: SecretsApi<ReleaseMeta>;
   constructor(readonly namespace: string) {
@@ -17,7 +19,7 @@ export class ReleaseDb {
   }
 
   generateTag(chartName: string, version: string, release: number) {
-    return `fr8.${chartName}.v${version}-${release}`;
+    return `${KPM_RECORD_PREFIX}.${chartName}.v${version}-${release}`;
   }
 
   async exists(chartName: string): Promise<boolean> {
@@ -69,7 +71,11 @@ export class ReleaseDb {
   async listReleases() {
     const releases = await this.secretsDb.list(this.namespace);
     return releases.body.items
-      .filter((item) => item.metadata?.labels?.service === "fr8")
+      .filter(
+        (item) =>
+          item.metadata?.labels?.service === KPM_RECORD_PREFIX &&
+          item.stringData?.data
+      )
       .map((item) => JSON.parse(item.stringData?.data || "") as ReleaseMeta);
   }
 }

@@ -1,6 +1,6 @@
 //import type { KubeServiceProps } from "@fr8/k8s-types";
+import { Service, StatefulSet } from "@fr8/components";
 import { Chart } from "../chart";
-import { Service, StatefulSet } from "../components";
 
 //jest.mock("cdk8s");
 
@@ -51,7 +51,7 @@ describe("@fr8/core", () => {
             },
           },
           spec: {
-            serviceName: serviceName,
+            serviceName,
             selector: {
               matchLabels: {
                 service: serviceName,
