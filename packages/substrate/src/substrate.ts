@@ -33,12 +33,12 @@ export class Substrate {
 
     return tag;
   }
-  async uninstall(chartName: string): Promise<void> {
+  async uninstall(releaseName: string): Promise<void> {
     const releases = await this.db.listReleases();
     await Promise.all(
       releases
-        .filter((r) => r.chartName === chartName)
-        .map((r) => this.db.deleteRelease(r.releaseName))
+        .filter((r) => r.releaseName === releaseName)
+        .map((r) => this.db.deleteRelease(r.tag))
     );
   }
   rollback() {
@@ -62,5 +62,9 @@ export class Substrate {
       releaseNumber: release.releaseNumber + 1,
       updatedAt: Date.now(),
     });
+  }
+
+  async listReleases(): Promise<ReleaseMeta[]> {
+    return this.db.listReleases();
   }
 }

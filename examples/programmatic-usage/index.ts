@@ -4,7 +4,7 @@ import { chart } from "@fr8/simple-chart-example";
 const manager = new FreightManager("my-namespace");
 
 manager
-  .installFromModule("my-chart", "my-release", chart, {
+  .installFromModule("my-release", chart, {
     // ...values
   })
   .then(() => {

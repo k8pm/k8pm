@@ -27,8 +27,8 @@ export class InstallHandler implements CommandHandlerInterface {
   ) {}
 
   async action(args?: string[]) {
-    if (args?.length !== 2) {
-      throw new Error("Invalid args");
+    if (!args) {
+      throw new Error("No arguments provided");
     }
     const [releaseName, chartPath] = args;
 

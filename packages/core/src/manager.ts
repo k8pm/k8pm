@@ -26,10 +26,11 @@ export class FreightManager {
   logger: LoggerInstance;
 
   constructor(namespace?: string) {
-    this.namespace = namespace || "default";
+    const ns = namespace || "default";
+    this.namespace = ns;
     this.logger = new Logger().createLogger("manager");
-    this.releaseApi = new Substrate(namespace || "default");
-    this.namespaceApi = new NamespaceApi(namespace || "default");
+    this.releaseApi = new Substrate(ns);
+    this.namespaceApi = new NamespaceApi(ns);
     this.abstractApi = new AbstractApi();
   }
 
@@ -63,7 +64,7 @@ export class FreightManager {
     values: Record<string, any>,
     opts?: InstallOptions
   ) {
-    this.logger.info("Installing chart from file", {
+    this.logger.debug("Installing chart from file", {
       chartName,
       yaml,
       values,
@@ -80,7 +81,6 @@ export class FreightManager {
     }
 
     try {
-      this.logger.info(`Applying ${chartName}`);
       await apply(yaml, AbstractApiMethodNames.CREATE);
       const release = await this.releaseApi.install(
         chartName,
@@ -88,23 +88,22 @@ export class FreightManager {
         opts?.version || DEFAULT_VERSION,
         yaml
       );
-      this.logger.info("Release installed", { release });
+      this.logger.info(`Installed "${chartName}" as "${release}"`);
     } catch (err) {
       this.logger.error("Install error", err);
     }
   }
 
   async installFromModule(
-    chartName: string,
     releaseName: string,
     chart: Chart<any>,
     values: Record<string, any>,
     opts?: InstallOptions
   ) {
-    const yaml = await chart.render(chartName, values, {
+    const yaml = await chart.render(chart.name, values, {
       namespace: this.namespace,
     });
-    await this.install(chartName, releaseName, yaml, values, opts);
+    await this.install(chart.name, releaseName, yaml, values, opts);
   }
 
   async installFromFile(
@@ -113,18 +112,18 @@ export class FreightManager {
     values: Record<string, any>,
     opts?: InstallOptions
   ) {
-    this.logger.info("Installing manifest from file", {
+    this.logger.debug("Installing chart from file", {
       chartPath,
       releaseName,
       values,
     });
 
-    const manifest = await this._importChart(chartPath);
-    const yaml = await manifest.render(releaseName, values, {
+    const chart = await this._importChart(chartPath);
+    const yaml = await chart.render(releaseName, values, {
       namespace: this.namespace,
     });
 
-    const chartName = chartPath.split("/").pop()?.split(".").shift();
+    const chartName = chart.name;
 
     if (!chartName) {
       throw new Error("Could not determine chart name");
@@ -135,32 +134,28 @@ export class FreightManager {
     await this.install(chartName, releaseName, yaml, values, opts);
   }
 
-  async uninstall(chartName: string, opts?: { namespace?: string }) {
+  async uninstall(releaseName: string, opts?: { namespace?: string }) {
     const namespace = opts?.namespace || "default";
-    this.logger.info("Uninstalling chart", {
-      chartName,
-    });
-
-    const exists = await this.releaseApi.exists(chartName);
+    const exists = await this.releaseApi.exists(releaseName);
 
     if (!exists) {
-      throw new Error(`"${chartName}" is not installed in "${namespace}"`);
+      throw new Error(`"${releaseName}" is not installed in "${namespace}"`);
     }
-    const release = await this.releaseApi.get(chartName);
+    const release = await this.releaseApi.get(releaseName);
+
+    this.logger.debug("Uninstalling chart", {
+      releaseName,
+      namespace,
+    });
 
     try {
-      this.logger.info(`Deleting ${chartName}`);
-      // @todo: only delete the chart resources
       await apply(release?.yml || "", AbstractApiMethodNames.DELETE);
-      await this.releaseApi.uninstall(chartName);
+      await this.releaseApi.uninstall(releaseName);
+      this.logger.info(`Deleted ${releaseName}`);
     } catch (err) {
       this.logger.error("Uninstall error", err);
     }
   }
-
-  // async list(opts?: { namespace?: string }) {
-  //   throw new Error("not implemented");
-  // }
 
   async upgrade(
     releaseName: string,
@@ -169,30 +164,56 @@ export class FreightManager {
     values: Record<string, any>,
     opts?: UpgradeOptions
   ) {
-    this.logger.info("Upgrading manifest from file", {
-      chartName,
-      yaml,
-      values,
-    });
-
     const existing = await this.releaseApi.exists(releaseName);
 
     if (!existing && !opts?.install) {
-      throw new Error(`"${chartName}" is not installed in "${this.namespace}"`);
+      throw new Error(
+        `"${releaseName}" is not installed in "${this.namespace}"`
+      );
     }
 
     await this._handleNamespace(this.namespace, opts);
 
     try {
-      this.logger.info(`Upgrading ${chartName}`);
       await apply(yaml, AbstractApiMethodNames.PATCH);
       await this.releaseApi.upgrade(
         releaseName,
         yaml,
         opts?.version || DEFAULT_VERSION
       );
+      this.logger.info(`Upgraded ${chartName}`);
     } catch (err) {
       this.logger.error("Upgrade error", err);
     }
+  }
+
+  async upgradeFromModule(
+    releaseName: string,
+    chart: Chart<any>,
+    values: Record<string, any>,
+    opts?: UpgradeOptions
+  ) {
+    const yaml = await chart.render(chart.name, values, {
+      namespace: this.namespace,
+    });
+    await this.upgrade(releaseName, chart.name, yaml, values, opts);
+  }
+
+  async upgradeFromFile(
+    releaseName: string,
+    chartPath: string,
+    values: Record<string, any>,
+    opts?: UpgradeOptions
+  ) {
+    const chart = await this._importChart(chartPath);
+    const yaml = await chart.render(chart.name, values, {
+      namespace: this.namespace,
+    });
+    await this.upgrade(releaseName, chart.name, yaml, values, opts);
+  }
+
+  async list() {
+    const releases = await this.releaseApi.listReleases();
+    return releases;
   }
 }

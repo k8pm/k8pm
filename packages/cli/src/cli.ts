@@ -22,6 +22,9 @@ export class CLI implements CLIInterface {
       throw new Error("No command provided");
     }
 
+    this.logger.debug("Executing command", { command: this.command });
+    this.logger.debug("Arguments", { args: this.argv });
+
     try {
       const handler = AppContainer.get<CommandHandlerInterface | undefined>(
         `ICommandHandler:${this.command}`

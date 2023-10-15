@@ -8,7 +8,9 @@
     "lint": "eslint .",
     "build": "tsc",
     "test": "echo 'noop'",
-    "install-example": "kpm install my-chart ./dist/chart.js"
+    "install-example": "kpm install my-release ./dist/chart.js -n test --createNamespace",
+    "uninstall-example": "kpm uninstall my-chart -n test",
+    "list-example": "kpm list -n test"
   },
   "devDependencies": {
     "@types/node": "^20.5.2",

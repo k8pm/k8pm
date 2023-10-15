@@ -5,12 +5,12 @@ interface ChartValues {
   service: string;
 }
 
-export const chart = new Chart<ChartValues>();
+export const chart = new Chart<ChartValues>("my-chart");
 
 const serviceName = "my-service";
 
 // Default values
-chart.values({
+chart.setValues({
   service: serviceName,
 });
 

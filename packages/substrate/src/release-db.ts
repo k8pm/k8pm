@@ -1,6 +1,7 @@
 import { SecretsApi } from "@fr8/k8s";
 
 export interface ReleaseMeta {
+  tag: string;
   chartName: string;
   version: string;
   releaseName: string;
@@ -22,25 +23,17 @@ export class ReleaseDb {
     return `${KPM_RECORD_PREFIX}.${chartName}.v${version}-${release}`;
   }
 
-  async exists(chartName: string): Promise<boolean> {
+  async exists(releaseName: string): Promise<boolean> {
     const releases = await this.listReleases();
-    return releases.some((r) => r.chartName === chartName);
+    return releases.some((r) => r.releaseName === releaseName);
   }
 
   async getRelease(releaseName: string) {
-    const releases = await this.secretsDb.list(this.namespace);
-    const release = releases.body.items.find(
-      (item) => item.metadata?.name === releaseName
-    );
-
-    if (!release?.stringData?.data) {
-      return null;
-    }
-
-    // lol typescript
-    return release.stringData.stringData as any as ReleaseMeta;
+    const releases = await this.listReleases();
+    const release = releases.find((r) => r.releaseName === releaseName);
+    return release || null;
   }
-  async createRelease(data: ReleaseMeta): Promise<string> {
+  async createRelease(data: Omit<ReleaseMeta, "tag">): Promise<string> {
     const tag = this.generateTag(
       data.chartName,
       data.version,
@@ -49,10 +42,13 @@ export class ReleaseDb {
     await this.secretsDb.create(
       tag,
       // release data
-      data,
+      {
+        ...data,
+        tag,
+      },
       // labels
       {
-        service: "fr8",
+        service: KPM_RECORD_PREFIX,
       }
     );
 
@@ -74,8 +70,9 @@ export class ReleaseDb {
       .filter(
         (item) =>
           item.metadata?.labels?.service === KPM_RECORD_PREFIX &&
-          item.stringData?.data
+          item.data?.data
       )
-      .map((item) => JSON.parse(item.stringData?.data || "") as ReleaseMeta);
+      .map((item) => Buffer.from(item.data?.data || "", "base64"))
+      .map((buf) => JSON.parse(buf.toString() || "") as ReleaseMeta);
   }
 }

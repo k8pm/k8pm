@@ -5,12 +5,13 @@ export type LoggerInstance = winston.Logger;
 const customFormat = format.printf(
   ({ level, message, logSource, ...metadata }) => {
     if (level === "info") {
-      return `[${logSource}]: ${message}`;
+      return `[kpm] [${logSource}]: ${message}`;
     }
 
     let msg = `[${level}] [${logSource}]: ${message} `;
+
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- ignore
-    if (metadata) {
+    if (metadata && Object.keys(metadata).length > 0) {
       msg += JSON.stringify(metadata, null, 2);
     }
     return msg;

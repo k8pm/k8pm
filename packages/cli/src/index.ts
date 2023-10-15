@@ -1,6 +1,8 @@
 import "reflect-metadata";
 import "./logger";
 import "./handlers/install";
+import "./handlers/uninstall";
+import "./handlers/list";
 import { CLI } from "./cli";
 import { AppContainer } from "./ioc";
 

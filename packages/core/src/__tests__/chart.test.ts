@@ -6,13 +6,13 @@ import { Chart } from "../chart";
 
 describe("@fr8/core", () => {
   it("renders chart", async () => {
-    const chart = new Chart<{ service: string }>();
+    const chart = new Chart<{ service: string }>("test-chart");
 
     const serviceName = "my-service";
     const namespace = "my-namespace";
 
     // set default values
-    chart.values({
+    chart.setValues({
       service: serviceName,
     });
 
