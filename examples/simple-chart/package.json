@@ -9,7 +9,7 @@
     "build": "tsc",
     "test": "echo 'noop'",
     "install-example": "kpm install my-release ./dist/chart.js -n test --createNamespace",
-    "uninstall-example": "kpm uninstall my-chart -n test",
+    "uninstall-example": "kpm uninstall my-release -n test",
     "list-example": "kpm list -n test"
   },
   "devDependencies": {

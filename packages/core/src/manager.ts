@@ -151,7 +151,6 @@ export class FreightManager {
     try {
       await apply(release?.yml || "", AbstractApiMethodNames.DELETE);
       await this.releaseApi.uninstall(releaseName);
-      this.logger.info(`Deleted ${releaseName}`);
     } catch (err) {
       this.logger.error("Uninstall error", err);
     }
