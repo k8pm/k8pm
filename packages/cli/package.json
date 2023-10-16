@@ -9,7 +9,7 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "build": "tsc",
+    "build": "tsup src/index.ts --format cjs,esm --dts",
     "test": "echo 'noop'",
     "cli": "node ./dist/index.js"
   },
@@ -20,10 +20,11 @@
     "typescript": "^4.5.2"
   },
   "dependencies": {
-    "arg": "^5.0.2",
     "@fr8/core": "workspace:*",
     "@fr8/logger": "workspace:*",
+    "arg": "^5.0.2",
     "reflect-metadata": "^0.1.13",
+    "tsup": "^7.2.0",
     "typedi": "^0.10.0"
   }
 }

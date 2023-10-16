@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint .",
-    "build": "tsc",
+    "build": "tsup src/index.ts --format cjs,esm --dts",
     "test": "jest"
   },
   "devDependencies": {
@@ -24,6 +24,7 @@
     "@fr8/logger": "workspace:*",
     "cdk8s": "^2.10.0",
     "cdk8s-plus-25": "^2.9.0",
-    "constructs": "^10.2.69"
+    "constructs": "^10.2.69",
+    "tsup": "^7.2.0"
   }
 }
