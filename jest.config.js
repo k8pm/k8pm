@@ -7,17 +7,17 @@ module.exports = {
   silent: false,
   rootDir: `./`,
   // moduleNameMapper: {
-  //   "^@fr8/(.*)$": "../<rootDir>/packages/$1",
+  //   "^@k8pm/(.*)$": "../<rootDir>/packages/$1",
   // },
   projects: [
     {
-      displayName: "@fr8/core",
+      displayName: "@k8pm/core",
       testMatch: ["<rootDir>/src/__tests__/**.test.ts"],
       testPathIgnorePatterns: ["<rootDir>/dist/"],
       preset: "ts-jest",
       rootDir: `./packages/core`,
       moduleNameMapper: {
-        "^@fr8/(.*)$": "<rootDir>/../$1/src",
+        "^@k8pm/(.*)$": "<rootDir>/../$1/src",
       },
     },
   ],

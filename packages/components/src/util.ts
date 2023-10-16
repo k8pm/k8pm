@@ -1,4 +1,4 @@
-import { IntOrString } from "@fr8/k8s-types";
+import { IntOrString } from "@k8pm/k8s-types";
 
 export const intOrStringFromNumber = (value: number) =>
   IntOrString.fromNumber(value);

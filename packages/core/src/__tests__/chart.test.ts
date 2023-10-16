@@ -1,10 +1,10 @@
-//import type { KubeServiceProps } from "@fr8/k8s-types";
-import { Service, StatefulSet } from "@fr8/components";
+//import type { KubeServiceProps } from "@k8pm/k8s-types";
+import { Service, StatefulSet } from "@k8pm/components";
 import { Chart } from "../chart";
 
 //jest.mock("cdk8s");
 
-describe("@fr8/core", () => {
+describe("@k8pm/core", () => {
   it("renders chart", async () => {
     const chart = new Chart<{ service: string }>("test-chart");
 

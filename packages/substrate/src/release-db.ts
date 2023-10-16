@@ -1,4 +1,4 @@
-import { SecretsApi } from "@fr8/k8s";
+import { SecretsApi } from "@k8pm/k8s";
 
 export interface ReleaseMeta {
   tag: string;

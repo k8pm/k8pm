@@ -42,16 +42,16 @@ importers:
 
   examples/programmatic-usage:
     dependencies:
-      '@fr8/cli':
+      '@k8pm/cli':
         specifier: workspace:*
         version: link:../../packages/cli
-      '@fr8/components':
+      '@k8pm/components':
         specifier: workspace:*
         version: link:../../packages/components
-      '@fr8/core':
+      '@k8pm/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@fr8/simple-chart-example':
+      '@k8pm/simple-chart-example':
         specifier: workspace:*
         version: link:../simple-chart
     devDependencies:
@@ -70,13 +70,13 @@ importers:
 
   examples/simple-chart:
     dependencies:
-      '@fr8/cli':
+      '@k8pm/cli':
         specifier: workspace:*
         version: link:../../packages/cli
-      '@fr8/components':
+      '@k8pm/components':
         specifier: workspace:*
         version: link:../../packages/components
-      '@fr8/core':
+      '@k8pm/core':
         specifier: workspace:*
         version: link:../../packages/core
     devDependencies:
@@ -95,10 +95,10 @@ importers:
 
   packages/cli:
     dependencies:
-      '@fr8/core':
+      '@k8pm/core':
         specifier: workspace:*
         version: link:../core
-      '@fr8/logger':
+      '@k8pm/logger':
         specifier: workspace:*
         version: link:../logger
       arg:
@@ -129,13 +129,13 @@ importers:
 
   packages/components:
     dependencies:
-      '@fr8/k8s':
+      '@k8pm/k8s':
         specifier: workspace:*
         version: link:../k8s
-      '@fr8/k8s-types':
+      '@k8pm/k8s-types':
         specifier: workspace:*
         version: link:../k8s-types
-      '@fr8/logger':
+      '@k8pm/logger':
         specifier: workspace:*
         version: link:../logger
       cdk8s:
@@ -175,19 +175,19 @@ importers:
 
   packages/core:
     dependencies:
-      '@fr8/components':
+      '@k8pm/components':
         specifier: workspace:*
         version: link:../components
-      '@fr8/k8s':
+      '@k8pm/k8s':
         specifier: workspace:*
         version: link:../k8s
-      '@fr8/k8s-types':
+      '@k8pm/k8s-types':
         specifier: workspace:*
         version: link:../k8s-types
-      '@fr8/logger':
+      '@k8pm/logger':
         specifier: workspace:*
         version: link:../logger
-      '@fr8/substrate':
+      '@k8pm/substrate':
         specifier: workspace:*
         version: link:../substrate
       cdk8s:
@@ -242,10 +242,10 @@ importers:
 
   packages/k8s:
     dependencies:
-      '@fr8/k8s-types':
+      '@k8pm/k8s-types':
         specifier: workspace:*
         version: link:../k8s-types
-      '@fr8/logger':
+      '@k8pm/logger':
         specifier: workspace:*
         version: link:../logger
       '@kubernetes/client-node':
@@ -317,13 +317,13 @@ importers:
 
   packages/substrate:
     dependencies:
-      '@fr8/k8s':
+      '@k8pm/k8s':
         specifier: workspace:*
         version: link:../k8s
-      '@fr8/k8s-types':
+      '@k8pm/k8s-types':
         specifier: workspace:*
         version: link:../k8s-types
-      '@fr8/logger':
+      '@k8pm/logger':
         specifier: workspace:*
         version: link:../logger
       '@kubernetes/client-node':

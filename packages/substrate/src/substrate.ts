@@ -1,5 +1,5 @@
-import type { LoggerInstance } from "@fr8/logger";
-import { Logger } from "@fr8/logger";
+import type { LoggerInstance } from "@k8pm/logger";
+import { Logger } from "@k8pm/logger";
 import type { ReleaseMeta } from "./release-db";
 import { ReleaseDb } from "./release-db";
 

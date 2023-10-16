@@ -1,4 +1,4 @@
-import { Logger } from "@fr8/logger";
+import { Logger } from "@k8pm/logger";
 import { AppContainer } from "./ioc";
 
 const logger = new Logger().createLogger("cli");

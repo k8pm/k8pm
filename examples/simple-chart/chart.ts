@@ -1,5 +1,5 @@
-import { Chart } from "@fr8/core";
-import { Service, StatefulSet } from "@fr8/components";
+import { Chart } from "@k8pm/core";
+import { Service, StatefulSet } from "@k8pm/components";
 
 interface ChartValues {
   service: string;

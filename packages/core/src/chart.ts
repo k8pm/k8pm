@@ -1,7 +1,7 @@
 import { App as Cdk8sApp, Chart as Cdk8sChart } from "cdk8s";
-import { Logger } from "@fr8/logger";
+import { Logger } from "@k8pm/logger";
 import type { z } from "zod";
-import type { Component } from "@fr8/components";
+import type { Component } from "@k8pm/components";
 
 // type Constructable<T> = new (...args: any[]) => T;
 

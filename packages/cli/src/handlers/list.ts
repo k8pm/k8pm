@@ -1,6 +1,6 @@
 import arg from "arg";
-import { FreightManager } from "@fr8/core";
-import { LoggerInstance } from "@fr8/logger";
+import { FreightManager } from "@k8pm/core";
+import { LoggerInstance } from "@k8pm/logger";
 import { AppInject, AppService } from "../ioc";
 import type { CommandHandlerInterface } from "../types";
 import { constantDependencies } from "../constants";

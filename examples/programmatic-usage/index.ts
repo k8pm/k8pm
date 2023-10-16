@@ -1,5 +1,5 @@
-import { FreightManager } from "@fr8/core";
-import { chart } from "@fr8/simple-chart-example";
+import { FreightManager } from "@k8pm/core";
+import { chart } from "@k8pm/simple-chart-example";
 
 const manager = new FreightManager("my-namespace");
 

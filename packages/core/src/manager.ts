@@ -1,8 +1,8 @@
 import path from "node:path";
-import type { LoggerInstance } from "@fr8/logger";
-import { Logger } from "@fr8/logger";
-import { Substrate } from "@fr8/substrate";
-import { AbstractApi, AbstractApiMethodNames, NamespaceApi } from "@fr8/k8s";
+import type { LoggerInstance } from "@k8pm/logger";
+import { Logger } from "@k8pm/logger";
+import { Substrate } from "@k8pm/substrate";
+import { AbstractApi, AbstractApiMethodNames, NamespaceApi } from "@k8pm/k8s";
 import type { Chart } from "./chart";
 import { apply } from "./apply";
 

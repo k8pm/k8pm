@@ -4,13 +4,13 @@ import type {
   KubeServiceProps,
   KubeConfigMapProps,
   KubeDeploymentProps,
-} from "@fr8/k8s-types";
+} from "@k8pm/k8s-types";
 import {
   KubeConfigMap,
   KubeStatefulSet,
   KubeService,
   KubeDeployment,
-} from "@fr8/k8s-types";
+} from "@k8pm/k8s-types";
 
 export abstract class Component<T> {
   name = "Component";

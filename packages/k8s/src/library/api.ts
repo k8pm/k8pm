@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars -- abstract class  */
-import type { LoggerInstance } from "@fr8/logger";
-import { Logger } from "@fr8/logger";
+import type { LoggerInstance } from "@k8pm/logger";
+import { Logger } from "@k8pm/logger";
 import { AppsV1Api, CoreV1Api, KubeConfig } from "@kubernetes/client-node";
 
 export abstract class KubernetesApiWrapper<T> {

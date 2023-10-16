@@ -1,4 +1,4 @@
-import { LoggerInstance } from "@fr8/logger";
+import { LoggerInstance } from "@k8pm/logger";
 import { AppContainer, AppInject, AppService } from "./ioc";
 import type { CommandHandlerInterface, CLIInterface } from "./types";
 import { constantDependencies } from "./constants";

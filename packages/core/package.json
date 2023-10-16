@@ -1,5 +1,5 @@
 {
-  "name": "@fr8/core",
+  "name": "@k8pm/core",
   "version": "0.0.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -20,11 +20,11 @@
     "typescript": "^4.5.2"
   },
   "dependencies": {
-    "@fr8/components": "workspace:*",
-    "@fr8/k8s": "workspace:*",
-    "@fr8/k8s-types": "workspace:*",
-    "@fr8/logger": "workspace:*",
-    "@fr8/substrate": "workspace:*",
+    "@k8pm/components": "workspace:*",
+    "@k8pm/k8s": "workspace:*",
+    "@k8pm/k8s-types": "workspace:*",
+    "@k8pm/logger": "workspace:*",
+    "@k8pm/substrate": "workspace:*",
     "cdk8s": "^2.10.0",
     "cdk8s-plus-25": "^2.9.0",
     "constructs": "^10.2.69",

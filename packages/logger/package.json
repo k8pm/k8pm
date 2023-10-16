@@ -1,5 +1,5 @@
 {
-  "name": "@fr8/logger",
+  "name": "@k8pm/logger",
   "version": "0.0.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

@@ -1,4 +1,4 @@
-import { AbstractApiMethodNames, AbstractApi } from "@fr8/k8s";
+import { AbstractApiMethodNames, AbstractApi } from "@k8pm/k8s";
 import YAML from "yaml";
 
 /**
