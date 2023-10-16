@@ -1,12 +1,35 @@
-# KPM
+# k8pm
 
 A Kubernetes package manager for TypeScript.
 
+**Features:**
+
+- Define Kubernetes infra without touching YAML.
+- Supports Zod schemas for parsing values.
+- Programatically manage packages.
+- Helm-like CLI.
+
 **!!! This project is currently in ALPHA and is not recommended for production use !!!**
 
-## Usage
+## Setup
 
-Write your charts in Typescript:
+First install the `k8pm` CLI:
+
+```bash
+# Globally
+npm i -g @k8pm/cli
+
+# Locally
+npm i -D @k8pm/cli
+```
+
+Then within your project install the packages required to build charts.
+
+```bash
+npm i @k8pm/core @k8pm/components
+```
+
+## Usage
 
 ```javascript
 // chart.ts
@@ -43,11 +66,15 @@ chart.addComponent(
 );
 ```
 
-And install your chart using the `kpm` CLI:
+Install the chart using the `k8pm` command:
 
 ```bash
-kpm install my-release ./chart.ts --namespace my-namespace
+k8pm install my-release ./chart.ts -n my-namespace
+
+k8pm uninstall my-release -n my-namespace
 ```
+
+**Note:** The `kpm` command is an alias of `k8pm` and can be used for convenience.
 
 You can also manage your charts programatically:
 
@@ -60,11 +87,23 @@ await manager.install("my-release", chart);
 await manager.uninstall("my-release");
 ```
 
+# Roadmap
+
+| Feature                 | Status |
+| ----------------------- | ------ |
+| Install                 | ✅     |
+| Uninstall               | ✅     |
+| List installed packages | ✅     |
+| Upgrade                 | TODO   |
+| Rollback                | TODO   |
+| CRD handling            | TODO   |
+| Additional components   | TODO   |
+
 # Q/A
 
-### What does KPM stand for?
+### What does K8PM stand for?
 
-KPM stands for KPM. It does **not** stand for Kubernetes Package Manager, as that would make use of a Linux Foundation trademark for "Kubernetes".
+K8PM stands for K8PM. It does **not** stand for Kubernetes Package Manager, as that would make use of a Linux Foundation trademark for "Kubernetes".
 
 ### Is this just a wrapper around Helm?
 

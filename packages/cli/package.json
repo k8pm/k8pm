@@ -5,7 +5,8 @@
   "types": "./dist/index.d.ts",
   "license": "MIT",
   "bin": {
-    "kpm": "./dist/index.js"
+    "kpm": "./dist/index.js",
+    "k8pm": "./dist/index.js"
   },
   "scripts": {
     "lint": "eslint .",
