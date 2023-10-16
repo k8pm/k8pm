@@ -1,5 +1,3 @@
-![The KPM mascot -- Cthulhu](./kpm-logo.png)
-
 # KPM
 
 A Kubernetes package manager for TypeScript.
@@ -12,7 +10,7 @@ Write your charts in Typescript:
 
 ```javascript
 // chart.ts
-const chart = new Chart<{ service: string }>();
+const chart = new Chart() < { service: string } > "my-chart";
 
 const serviceName = "my-service";
 const namespace = "my-namespace";
