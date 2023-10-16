@@ -282,6 +282,9 @@ importers:
 
   packages/k8s-types:
     dependencies:
+      cdk8s:
+        specifier: ^2.10.0
+        version: 2.64.7(constructs@10.2.70)
       constructs:
         specifier: ^10.2.69
         version: 10.2.70
