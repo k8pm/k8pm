@@ -9,7 +9,7 @@ A Kubernetes package manager for TypeScript.
 - Programatically manage packages.
 - Helm-like CLI.
 
-**!!! This project is currently in ALPHA and is not recommended for production use !!!**
+### This project is currently in ALPHA and is not recommended for production. USE AT YOUR OWN RISK
 
 ## Setup
 

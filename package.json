@@ -5,7 +5,8 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "test": "jest"
+    "test": "jest",
+    "changeset": "changeset"
   },
   "devDependencies": {
     "@types/jest": "^29.5.5",
