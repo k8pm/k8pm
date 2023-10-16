@@ -7,7 +7,8 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "test": "jest",
     "changeset": "changeset",
-    "publish-packages": "turbo run build lint test && changeset version && changeset publish"
+    "pre-publish": "turbo run build lint && pnpm run test",
+    "publish-packages": "pnpm run pre-publish && changeset version && changeset publish"
   },
   "devDependencies": {
     "@types/jest": "^29.5.5",

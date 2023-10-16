@@ -13,7 +13,7 @@ module.exports = {
     {
       displayName: "@k8pm/core",
       testMatch: ["<rootDir>/src/__tests__/**.test.ts"],
-      testPathIgnorePatterns: ["<rootDir>/dist/"],
+      testPathIgnorePatterns: ["dist"],
       preset: "ts-jest",
       rootDir: `./packages/core`,
       moduleNameMapper: {
