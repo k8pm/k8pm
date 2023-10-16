@@ -7,7 +7,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "test": "jest",
     "changeset": "changeset",
-    "pre-publish": "turbo run build lint && pnpm run test",
+    "pre-publish": "pnpm run build && pnpm run lint && pnpm run test",
     "publish-packages": "pnpm run pre-publish && changeset version && changeset publish"
   },
   "devDependencies": {
