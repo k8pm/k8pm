@@ -19,14 +19,20 @@
     "@types/node": "^20.5.2",
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",
-    "typescript": "^4.5.2"
+    "typescript": "^4.5.2",
+    "tsup": "^7.2.0"
   },
   "dependencies": {
     "@k8pm/core": "workspace:*",
     "@k8pm/logger": "workspace:*",
     "arg": "^5.0.2",
     "reflect-metadata": "^0.1.13",
-    "tsup": "^7.2.0",
     "typedi": "^0.10.0"
+  },
+  "tsup": {
+    "noExternal": [
+      "@k8pm/logger",
+      "@k8pm/core"
+    ]
   }
 }
