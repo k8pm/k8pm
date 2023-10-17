@@ -4,6 +4,7 @@
   "main": "./dist/chart.js",
   "types": "./dist/index.d.ts",
   "license": "MIT",
+  "private": true,
   "scripts": {
     "lint": "eslint .",
     "build": "tsc",
