@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "lint": "echo 'noop'",
-    "build": "tsup src/index.ts --format cjs,esm --dts"
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "test": "echo 'noop'"
   },
   "devDependencies": {
     "eslint-config-custom": "workspace:*",
