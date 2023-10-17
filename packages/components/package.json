@@ -18,15 +18,21 @@
     "jest": "^29.7.0",
     "ts-jest": "^29.1.1",
     "tsconfig": "workspace:*",
-    "typescript": "^4.5.2"
+    "typescript": "^4.5.2",
+    "tsup": "^7.2.0"
   },
   "dependencies": {
     "@k8pm/k8s": "workspace:*",
     "@k8pm/k8s-types": "workspace:*",
     "@k8pm/logger": "workspace:*",
     "cdk8s": "^2.10.0",
-    "cdk8s-plus-25": "^2.9.0",
-    "constructs": "^10.2.69",
-    "tsup": "^7.2.0"
+    "constructs": "^10.2.69"
+  },
+  "tsup": {
+    "noExternal": [
+      "@k8pm/k8s",
+      "@k8pm/k8s-types",
+      "@k8pm/logger"
+    ]
   }
 }

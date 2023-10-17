@@ -17,6 +17,7 @@
     "eslint-config-custom": "workspace:*",
     "jest": "^29.7.0",
     "ts-jest": "^29.1.1",
+    "tsup": "^7.2.0",
     "tsconfig": "workspace:*",
     "typescript": "^4.5.2"
   },
@@ -27,10 +28,17 @@
     "@k8pm/logger": "workspace:*",
     "@k8pm/substrate": "workspace:*",
     "cdk8s": "^2.10.0",
-    "cdk8s-plus-25": "^2.9.0",
     "constructs": "^10.2.69",
-    "tsup": "^7.2.0",
     "yaml": "^2.3.2",
     "zod": "^3.21.4"
+  },
+  "tsup": {
+    "noExternal": [
+      "@k8pm/components",
+      "@k8pm/k8s",
+      "@k8pm/k8s-types",
+      "@k8pm/logger",
+      "@k8pm/substrate"
+    ]
   }
 }
