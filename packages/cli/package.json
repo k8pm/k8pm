@@ -4,6 +4,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "license": "MIT",
+  "private": false,
   "bin": {
     "kpm": "./dist/index.js",
     "k8pm": "./dist/index.js"
