@@ -1,5 +1,14 @@
 # @k8pm/simple-chart-example
 
+## 0.0.3
+
+### Patch Changes
+
+- Updated dependencies [52de3b4]
+  - @k8pm/components@0.1.2
+  - @k8pm/core@0.1.2
+  - @k8pm/cli@0.1.2
+
 ## 0.0.2
 
 ### Patch Changes
