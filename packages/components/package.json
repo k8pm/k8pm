@@ -13,6 +13,9 @@
   },
   "devDependencies": {
     "@types/jest": "^29.5.5",
+    "@k8pm/k8s": "workspace:*",
+    "@k8pm/k8s-types": "workspace:*",
+    "@k8pm/logger": "workspace:*",
     "babel-jest": "^29.7.0",
     "eslint-config-custom": "workspace:*",
     "jest": "^29.7.0",
@@ -22,9 +25,6 @@
     "tsup": "^7.2.0"
   },
   "dependencies": {
-    "@k8pm/k8s": "workspace:*",
-    "@k8pm/k8s-types": "workspace:*",
-    "@k8pm/logger": "workspace:*",
     "cdk8s": "^2.10.0",
     "constructs": "^10.2.69"
   },

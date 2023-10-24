@@ -17,14 +17,14 @@
   },
   "devDependencies": {
     "@types/node": "^20.5.2",
+    "@k8pm/core": "workspace:*",
+    "@k8pm/logger": "workspace:*",
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "^4.5.2",
     "tsup": "^7.2.0"
   },
   "dependencies": {
-    "@k8pm/core": "workspace:*",
-    "@k8pm/logger": "workspace:*",
     "arg": "^5.0.2",
     "reflect-metadata": "^0.1.13",
     "typedi": "^0.10.0"

@@ -19,14 +19,14 @@
     "ts-jest": "^29.1.1",
     "tsup": "^7.2.0",
     "tsconfig": "workspace:*",
-    "typescript": "^4.5.2"
-  },
-  "dependencies": {
+    "typescript": "^4.5.2",
     "@k8pm/components": "workspace:*",
     "@k8pm/k8s": "workspace:*",
     "@k8pm/k8s-types": "workspace:*",
     "@k8pm/logger": "workspace:*",
-    "@k8pm/substrate": "workspace:*",
+    "@k8pm/substrate": "workspace:*"
+  },
+  "dependencies": {
     "cdk8s": "^2.10.0",
     "constructs": "^10.2.69",
     "yaml": "^2.3.2",
