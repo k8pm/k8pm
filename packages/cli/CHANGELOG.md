@@ -1,5 +1,11 @@
 # @k8pm/cli
 
+## 0.1.2
+
+### Patch Changes
+
+- 52de3b4: Bundle local dependencies
+
 ## 0.1.1
 
 ### Patch Changes

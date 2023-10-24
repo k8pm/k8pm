@@ -1,6 +1,6 @@
 {
   "name": "@k8pm/simple-chart-example",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "./dist/chart.js",
   "types": "./dist/chart.d.ts",
   "license": "MIT",
