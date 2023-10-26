@@ -74,8 +74,6 @@ k8pm install my-release ./chart.ts -n my-namespace
 k8pm uninstall my-release -n my-namespace
 ```
 
-**Note:** The `kpm` command is an alias of `k8pm` and can be used for convenience.
-
 You can also manage your charts programatically:
 
 ```javascript
