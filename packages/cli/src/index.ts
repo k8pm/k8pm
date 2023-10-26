@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import "reflect-metadata";
 import "./logger";
 import "./handlers/install";

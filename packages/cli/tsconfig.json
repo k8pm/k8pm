@@ -5,6 +5,8 @@
   "compilerOptions": {
     "outDir": "./dist",
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "target": "es2015",
+    "moduleResolution": "node"
   }
 }

@@ -6,7 +6,6 @@
   "license": "MIT",
   "private": false,
   "bin": {
-    "kpm": "./dist/index.js",
     "k8pm": "./dist/index.js"
   },
   "scripts": {
@@ -16,13 +15,13 @@
     "cli": "node ./dist/index.js"
   },
   "devDependencies": {
-    "@types/node": "^20.5.2",
     "@k8pm/core": "workspace:*",
     "@k8pm/logger": "workspace:*",
+    "@types/node": "^20.5.2",
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",
-    "typescript": "^4.5.2",
-    "tsup": "^7.2.0"
+    "tsup": "^7.2.0",
+    "typescript": "^4.5.2"
   },
   "dependencies": {
     "arg": "^5.0.2",
