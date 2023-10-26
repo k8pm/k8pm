@@ -1,5 +1,13 @@
 # @k8pm/programmatic-usage-example
 
+## 0.0.4
+
+### Patch Changes
+
+- Updated dependencies [fb813ac]
+  - @k8pm/cli@0.1.3
+  - @k8pm/simple-chart-example@0.0.4
+
 ## 0.0.3
 
 ### Patch Changes

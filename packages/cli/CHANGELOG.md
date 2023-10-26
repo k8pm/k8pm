@@ -1,5 +1,11 @@
 # @k8pm/cli
 
+## 0.1.3
+
+### Patch Changes
+
+- fb813ac: Resolve k8pm cli command not working
+
 ## 0.1.2
 
 ### Patch Changes
